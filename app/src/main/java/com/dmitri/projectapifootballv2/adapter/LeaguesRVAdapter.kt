@@ -3,9 +3,9 @@ package com.dmitri.projectapifootballv2.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.dmitri.projectapifootball.databinding.ItemLeagueBinding
-import com.dmitri.projectapifootball.presenter.LeaguesPresenter
-import com.dmitri.projectapifootball.view.LeaguesItemView
+import com.dmitri.projectapifootballv2.databinding.ItemLeagueBinding
+import com.dmitri.projectapifootballv2.presenter.LeaguesPresenter
+import com.dmitri.projectapifootballv2.view.LeaguesItemView
 
 class LeaguesRVAdapter(val presenter: LeaguesPresenter.LeaguesListPresenter) :
     RecyclerView.Adapter<LeaguesRVAdapter.ViewHolder>() {

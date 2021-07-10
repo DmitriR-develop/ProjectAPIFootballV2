@@ -1,19 +1,17 @@
-package com.dmitri.projectapifootball.navigation
+package com.dmitri.projectapifootballv2.navigation
 
-import com.dmitri.projectapifootball.fragments.LeaguesFragment
-import com.dmitri.projectapifootball.fragments.TeamsFragment
-import com.dmitri.projectapifootball.model.Leagues
-import com.dmitri.projectapifootballv2.navigation.IScreens
-import com.github.terrakok.cicerone.Screen
-import com.github.terrakok.cicerone.androidx.FragmentScreen
+import com.dmitri.projectapifootballv2.fragments.LeaguesFragment
+import com.dmitri.projectapifootballv2.fragments.TeamsFragment
+import com.dmitri.projectapifootballv2.model.Leagues
+import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 object AndroidScreen {
 
-    class LeaguesScreens : IScreens {
-        override fun getFragment(): Screen = FragmentScreen { LeaguesFragment.newInstance() }
+    class LeaguesScreens : SupportAppScreen() {
+        override fun getFragment() = LeaguesFragment.newInstance()
     }
 
-    class TeamsScreens(private val team: Leagues) : IScreens {
-        override fun getFragment(): Screen = FragmentScreen { TeamsFragment.newInstance(team) }
+    class TeamsScreens(private val team: Leagues) : SupportAppScreen() {
+        override fun getFragment() = TeamsFragment.newInstance(team)
     }
 }
