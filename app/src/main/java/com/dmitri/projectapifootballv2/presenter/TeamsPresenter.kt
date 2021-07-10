@@ -1,14 +1,14 @@
 package com.dmitri.projectapifootballv2.presenter
 
-import com.dmitri.projectapifootball.model.ILeaguesRepo
-import com.dmitri.projectapifootball.model.Teams
+import com.dmitri.projectapifootballv2.model.ILeaguesRepo
+import com.dmitri.projectapifootballv2.model.Teams
 import com.dmitri.projectapifootballv2.view.TeamsItemView
 import com.dmitri.projectapifootballv2.view.TeamsView
-import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
+import ru.terrakok.cicerone.Router
 
 class TeamsPresenter(
     private val leagueId: Int,
@@ -17,7 +17,7 @@ class TeamsPresenter(
     private val scheduler: Scheduler
 ) : MvpPresenter<TeamsView>() {
 
-    class TeamsListPresenter : com.dmitri.projectapifootball.presenter.TeamsListPresenter {
+    class TeamsListPresenter : com.dmitri.projectapifootballv2.presenter.TeamsListPresenter {
         val teams = mutableListOf<Teams>()
         override var itemClickListener: ((TeamsItemView) -> Unit)? = null
         override fun getCount() = teams.size

@@ -5,26 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dmitri.projectapifootballv2.R.layout.fragment_teams
+import com.dmitri.projectapifootballv2.abs.AbsFragment
 import com.dmitri.projectapifootballv2.adapter.TeamsRVAdapter
 import com.dmitri.projectapifootballv2.databinding.FragmentTeamsBinding
-import com.dmitri.projectapifootballv2.model.ILeaguesRepo
-import com.dmitri.projectapifootballv2.model.Teams
+import com.dmitri.projectapifootballv2.model.Leagues
 import com.dmitri.projectapifootballv2.navigation.IBackButtonListener
 import com.dmitri.projectapifootballv2.presenter.TeamsPresenter
 import com.dmitri.projectapifootballv2.view.TeamsItemView
 import com.dmitri.projectapifootballv2.view.TeamsView
-import com.github.terrakok.cicerone.Router
-import io.reactivex.rxjava3.core.Scheduler
-import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
-import javax.inject.Inject
 
-class TeamsFragment : MvpAppCompatFragment(), TeamsView, TeamsItemView, IBackButtonListener {
+class TeamsFragment : AbsFragment(fragment_teams), TeamsView, TeamsItemView, IBackButtonListener {
     companion object {
         private const val TEAM_NAME = "TEAM_NAME"
 
         @JvmStatic
-        fun newInstance(team: Teams) =
+        fun newInstance(team: Leagues) =
             TeamsFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(TEAM_NAME, team)
@@ -32,17 +29,9 @@ class TeamsFragment : MvpAppCompatFragment(), TeamsView, TeamsItemView, IBackBut
             }
     }
 
-    @Inject
-    lateinit var leaguesRepo: ILeaguesRepo
-
-    @Inject
-    lateinit var router: Router
-
-    @Inject
-    lateinit var scheduler: Scheduler
-
     private var vb: FragmentTeamsBinding? = null
     private val binding get() = vb!!
+
     private val leagueId by lazy {
         arguments?.getInt(TEAM_NAME) ?: ""
     }
@@ -68,8 +57,8 @@ class TeamsFragment : MvpAppCompatFragment(), TeamsView, TeamsItemView, IBackBut
         }.root
     }
 
-    override fun setName(text: String) {
-        binding.tvChooseLeague.text = text
+    override fun setName(league: String) {
+        binding.tvChooseLeague.text = league
     }
 
     override var pos: Int
