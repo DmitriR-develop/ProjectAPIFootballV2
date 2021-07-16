@@ -27,8 +27,8 @@ class LeaguesRVAdapter(val presenter: LeaguesPresenter.LeaguesListPresenter) :
 
         override var pos = -1
 
-        override fun setName(text: String) {
-            vb.tvLeagueName.text = text
+        override fun setName(text: Int) {
+            vb.tvLeagueName.id = text
         }
     }
 }

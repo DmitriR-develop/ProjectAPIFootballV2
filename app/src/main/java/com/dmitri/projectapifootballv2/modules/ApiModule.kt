@@ -1,6 +1,11 @@
 package com.dmitri.projectapifootballv2.modules
 
+import android.content.Context
+import androidx.room.Room
 import com.dmitri.projectapifootballv2.api.IDataSource
+import com.dmitri.projectapifootballv2.model.entity.room.database.Database
+import com.dmitri.projectapifootballv2.network.AndroidNetworkStatus
+import com.dmitri.projectapifootballv2.network.NetworkStatus
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -19,14 +24,25 @@ class ApiModule {
 
     @Singleton
     @Provides
-    fun gson() = GsonBuilder().create()
+    fun provideGson() = GsonBuilder().create()
 
     @Singleton
     @Provides
-    fun api(@Named("baseUrl") baseUrl: String, gson: Gson): IDataSource = Retrofit.Builder()
+    fun provideApi(@Named("baseUrl") baseUrl: String, gson: Gson): IDataSource = Retrofit.Builder()
         .baseUrl(baseUrl)
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
         .create(IDataSource::class.java)
+
+    @Singleton
+    @Provides
+    fun provideNetworkStatus(context: Context): NetworkStatus = AndroidNetworkStatus(context)
+
+    @Singleton
+    @Provides
+    fun provideDataBase(context: Context): Database =
+        Room.databaseBuilder(context, Database::class.java, Database.DB_NAME)
+            .fallbackToDestructiveMigration()
+            .build()
 }

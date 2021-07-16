@@ -21,7 +21,7 @@ class LeaguesFragment : AbsFragment(fragment_leagues), LeaguesView, IBackButtonL
     }
 
     val presenter by moxyPresenter {
-        LeaguesPresenter(leaguesRepo, router, scheduler)
+        LeaguesPresenter(leaguesRepo, router, scheduler, networkStatus)
     }
 
     var adapter: LeaguesRVAdapter? = null
@@ -42,7 +42,7 @@ class LeaguesFragment : AbsFragment(fragment_leagues), LeaguesView, IBackButtonL
 
     override fun init() {
         vb?.rvLeagues?.layoutManager = LinearLayoutManager(context)
-        adapter = LeaguesRVAdapter(presenter.leaguesListPresenter)
+        adapter = LeaguesRVAdapter(presenter.getLeaguesListPresenter())
         binding.rvLeagues.adapter = adapter
     }
 

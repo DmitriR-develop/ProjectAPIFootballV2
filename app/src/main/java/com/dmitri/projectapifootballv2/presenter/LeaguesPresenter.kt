@@ -1,8 +1,9 @@
 package com.dmitri.projectapifootballv2.presenter
 
-import com.dmitri.projectapifootballv2.model.ILeaguesRepo
-import com.dmitri.projectapifootballv2.model.Leagues
+import com.dmitri.projectapifootballv2.model.entity.Leagues
+import com.dmitri.projectapifootballv2.model.repo.LeaguesRepo
 import com.dmitri.projectapifootballv2.navigation.AndroidScreen
+import com.dmitri.projectapifootballv2.network.NetworkStatus
 import com.dmitri.projectapifootballv2.view.LeaguesItemView
 import com.dmitri.projectapifootballv2.view.LeaguesView
 import io.reactivex.rxjava3.core.Scheduler
@@ -12,9 +13,10 @@ import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 
 class LeaguesPresenter(
-    private val leaguesRepo: ILeaguesRepo,
+    private val leaguesRepo: LeaguesRepo,
     private val router: Router,
-    private val scheduler: Scheduler
+    private val scheduler: Scheduler,
+    private val networkStatus: NetworkStatus
 ) : MvpPresenter<LeaguesView>() {
 
     class LeaguesListPresenter : com.dmitri.projectapifootballv2.presenter.LeaguesListPresenter {
@@ -28,7 +30,7 @@ class LeaguesPresenter(
         }
 
         private fun onBindViewSuccess(view: LeaguesItemView, leagues: Leagues) {
-            view.setName(leagues.name)
+            view.setName(leagues.id)
         }
 
         private fun onBindViewError(error: Throwable) {
@@ -36,8 +38,10 @@ class LeaguesPresenter(
         }
     }
 
-    val leaguesListPresenter = LeaguesListPresenter()
+    private val leaguesListPresenter = LeaguesListPresenter()
     private var disposable: CompositeDisposable = CompositeDisposable()
+
+    fun getLeaguesListPresenter() = leaguesListPresenter
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()

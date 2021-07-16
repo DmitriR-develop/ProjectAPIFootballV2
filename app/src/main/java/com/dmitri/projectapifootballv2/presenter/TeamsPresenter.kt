@@ -1,7 +1,7 @@
 package com.dmitri.projectapifootballv2.presenter
 
-import com.dmitri.projectapifootballv2.model.ILeaguesRepo
-import com.dmitri.projectapifootballv2.model.Teams
+import com.dmitri.projectapifootballv2.model.entity.Teams
+import com.dmitri.projectapifootballv2.model.repo.TeamsRepo
 import com.dmitri.projectapifootballv2.view.TeamsItemView
 import com.dmitri.projectapifootballv2.view.TeamsView
 import io.reactivex.rxjava3.core.Scheduler
@@ -12,7 +12,8 @@ import ru.terrakok.cicerone.Router
 
 class TeamsPresenter(
     private val leagueId: Int,
-    private val leaguesRepo: ILeaguesRepo,
+    private val teams: List<Teams>,
+    private val teamsRepo: TeamsRepo,
     private val router: Router,
     private val scheduler: Scheduler
 ) : MvpPresenter<TeamsView>() {
@@ -36,8 +37,10 @@ class TeamsPresenter(
         }
     }
 
-    val teamsListPresenter = TeamsListPresenter()
+    private val teamsListPresenter = TeamsListPresenter()
     private var disposable = CompositeDisposable()
+
+    fun getTeamsListPresenter() = teamsListPresenter
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -48,7 +51,7 @@ class TeamsPresenter(
 
     private fun loadData() {
         disposable.add(
-            leaguesRepo.getTeams(leagueId)
+            teamsRepo.getTeams(leagueId, teams)
                 .observeOn(scheduler)
                 .subscribe({ teams -> subscribeLeagues(teams) }, { it.printStackTrace() })
         )

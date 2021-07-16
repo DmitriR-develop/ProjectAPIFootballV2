@@ -2,7 +2,7 @@ package com.dmitri.projectapifootballv2.navigation
 
 import com.dmitri.projectapifootballv2.fragments.LeaguesFragment
 import com.dmitri.projectapifootballv2.fragments.TeamsFragment
-import com.dmitri.projectapifootballv2.model.Leagues
+import com.dmitri.projectapifootballv2.model.entity.Leagues
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 object AndroidScreen {

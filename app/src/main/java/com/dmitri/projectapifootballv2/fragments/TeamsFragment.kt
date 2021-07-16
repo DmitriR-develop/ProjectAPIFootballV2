@@ -9,7 +9,7 @@ import com.dmitri.projectapifootballv2.R.layout.fragment_teams
 import com.dmitri.projectapifootballv2.abs.AbsFragment
 import com.dmitri.projectapifootballv2.adapter.TeamsRVAdapter
 import com.dmitri.projectapifootballv2.databinding.FragmentTeamsBinding
-import com.dmitri.projectapifootballv2.model.Leagues
+import com.dmitri.projectapifootballv2.model.entity.Leagues
 import com.dmitri.projectapifootballv2.navigation.IBackButtonListener
 import com.dmitri.projectapifootballv2.presenter.TeamsPresenter
 import com.dmitri.projectapifootballv2.view.TeamsItemView
@@ -39,7 +39,8 @@ class TeamsFragment : AbsFragment(fragment_teams), TeamsView, TeamsItemView, IBa
     private val presenter by moxyPresenter {
         TeamsPresenter(
             leagueId as Int,
-            leaguesRepo,
+            teams,
+            teamsRepo,
             router,
             scheduler
         )
@@ -67,7 +68,7 @@ class TeamsFragment : AbsFragment(fragment_teams), TeamsView, TeamsItemView, IBa
 
     override fun init() {
         binding.rvTeams.layoutManager = LinearLayoutManager(context)
-        adapter = TeamsRVAdapter(presenter.teamsListPresenter)
+        adapter = TeamsRVAdapter(presenter.getTeamsListPresenter())
         binding.rvTeams.adapter = adapter
     }
 

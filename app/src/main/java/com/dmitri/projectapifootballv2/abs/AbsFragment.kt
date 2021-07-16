@@ -2,7 +2,10 @@ package com.dmitri.projectapifootballv2.abs
 
 import android.content.Context
 import androidx.annotation.LayoutRes
-import com.dmitri.projectapifootballv2.model.ILeaguesRepo
+import com.dmitri.projectapifootballv2.model.entity.Teams
+import com.dmitri.projectapifootballv2.model.repo.LeaguesRepo
+import com.dmitri.projectapifootballv2.model.repo.TeamsRepo
+import com.dmitri.projectapifootballv2.network.NetworkStatus
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -14,6 +17,13 @@ import javax.inject.Inject
 
 abstract class AbsFragment(@LayoutRes contentLayoutId: Int) : MvpAppCompatFragment(contentLayoutId),
     HasAndroidInjector {
+
+    @Inject
+    lateinit var teams: List<Teams>
+
+    @Inject
+    lateinit var teamsRepo: TeamsRepo
+
     @Inject
     lateinit var router: Router
 
@@ -21,7 +31,10 @@ abstract class AbsFragment(@LayoutRes contentLayoutId: Int) : MvpAppCompatFragme
     lateinit var scheduler: Scheduler
 
     @Inject
-    lateinit var leaguesRepo: ILeaguesRepo
+    lateinit var leaguesRepo: LeaguesRepo
+
+    @Inject
+    lateinit var networkStatus: NetworkStatus
 
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
