@@ -1,9 +1,10 @@
 package com.dmitri.projectapifootballv2
 
-import com.github.terrakok.cicerone.Cicerone
+import com.dmitri.projectapifootballv2.modules.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import ru.terrakok.cicerone.Cicerone
 
 class App : DaggerApplication() {
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> =
@@ -17,5 +18,4 @@ class App : DaggerApplication() {
             }
             .withScheduler(AndroidSchedulers.mainThread())
             .build()
-
 }

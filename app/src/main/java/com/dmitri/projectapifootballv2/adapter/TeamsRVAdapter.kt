@@ -26,11 +26,11 @@ class TeamsRVAdapter(val presenter: TeamsPresenter.TeamsListPresenter) :
     }
 
 
-    inner class ViewHolder(val vb: ItemTeamBinding) : RecyclerView.ViewHolder(vb.root),
+    inner class ViewHolder(private val vb: ItemTeamBinding) : RecyclerView.ViewHolder(vb.root),
         TeamsItemView {
         override var pos = -1
-        override fun setName(text: String) {
-            vb.tvTeamName.text = text
+        override fun setName(league: String) {
+            vb.tvTeamName.text = league
         }
     }
 }

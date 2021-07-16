@@ -1,4 +1,4 @@
-package com.dmitri.projectapifootballv2.model
+package com.dmitri.projectapifootballv2.model.entity
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

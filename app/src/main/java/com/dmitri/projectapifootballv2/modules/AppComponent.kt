@@ -2,24 +2,24 @@ package com.dmitri.projectapifootballv2.modules
 
 import android.content.Context
 import com.dmitri.projectapifootballv2.App
-import com.github.terrakok.cicerone.NavigatorHolder
-import com.github.terrakok.cicerone.Router
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
 import io.reactivex.rxjava3.core.Scheduler
+import ru.terrakok.cicerone.NavigatorHolder
+import ru.terrakok.cicerone.Router
 import javax.inject.Singleton
 
 @Singleton
 @Component(
     modules = [
         AndroidInjectionModule::class,
-        AppModule::class,
-        AppModule::class,
+        ApiModule::class,
         MainModule::class,
         RepoModule::class,
-        UiModule::class
+        UiModule::class,
+        CacheModule::class
     ]
 )
 
